@@ -1,0 +1,29 @@
+server:
+  port: 12000
+spring:
+  spring:
+    rabbitmq:
+      host: localhost
+      port: 5672
+      username: guest
+      password: guest
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/shetengfei/stf.git
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
+management:
+  endpoints:
+    web:
+      exposure:
+
+        include: bus-refresh
+logging:
+  level:
+    com: debug

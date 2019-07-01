@@ -1,0 +1,35 @@
+
+# 端口
+server:
+  port: 10010
+spring:
+  cloud:
+    gateway:
+      # 路由si(集合)
+      routes:
+        # id唯一标识，(可自定义)
+        - id: user-service-route
+          # 路由服务地址  静态路由
+         # uri: http://127.0.0.1:9091
+          #动态路由  lb:协议属于网关的独有协议  自动智慧负载均衡
+          uri: lb://producer-server
+          # 路由拦截地址(断言) 拦截的路径规则   静态路由
+          predicates:
+            - Path=/user/**
+          filters:
+            # 添加前缀
+            # - PrefixPath=/user
+            #  去除前缀，1代表去除一个/任意路径/，2代表去除两个/任意路径/
+            # - StripPrefix=1
+            # 自定义过滤器的配置，名字是截取的自定义名称
+            - MyParam=name
+# 当前应用的名称
+  application:
+    name: api-gateway
+# 配置Eureka注册中心地址，
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
+
+
